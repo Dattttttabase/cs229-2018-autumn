@@ -19,7 +19,7 @@ def main(train_path, eval_path, pred_path):
     log_reg=LogisticRegression()
     log_reg.fit(x_train, y_train)
     y_pred=log_reg.predict(x_eval)
-    m,_ = x_eval.shape()
+    m,_ = x_eval.shape
     accuracy=np.sum(y_pred==y_eval)/m
     print(f'Accuracy: {accuracy}')
     # *** END CODE HERE ***
@@ -46,18 +46,18 @@ class LogisticRegression(LinearModel):
             return 1/(1+np.exp(-np.dot(x,theta)))
         
         def gradient(theta, x, y):
-            m,_=x.shape()
+            m,_=x.shape
             return -1/m*np.dot(x.T,(y-h(theta, x)))
         
         def hessian(theta, x, y):
-            m,_=x.shape()
+            m,_=x.shape
             h_theta_x=np.reshape(h(theta, x),(-1,1))
-            return 1/m*np.dot(x.T, h_theta_x*(1-h_theta_x*x))
+            return 1/m*np.dot(x.T, h_theta_x*(1-h_theta_x)*x)
         
         def next_theta(theta, x, y):
             return theta-np.linalg.inv(hessian(theta, x, y)).dot(gradient(theta, x,y))
         
-        m,n=x.shape()
+        m,n=x.shape
         
         if self.theta is None:
             self.theta=np.zeros(n)
@@ -86,6 +86,6 @@ class LogisticRegression(LinearModel):
 
 
 if __name__ == '__main__':
-    main(train_path='data/ds1_train.csv',
-         eval_path='data/ds1_valid.csv',
+    main(train_path='problem-sets/PS1/data/ds1_train.csv',
+         eval_path='problem-sets/PS1/data/ds1_valid.csv',
          pred_path='data/pred_logreg.csv')
